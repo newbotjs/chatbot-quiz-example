@@ -1,0 +1,45 @@
+$score = 0
+
+@Intent(/play/i)
+play() {
+    questions = [
+        {
+            str: 'What is the capital of France?',
+            choices: ['Paris', 'Lyon', 'Marseille'],
+            correct: 0
+        },
+        {
+            str: 'What is the largest planet in the solar system?',
+            choices: ['Earth', 'Jupiter', 'Saturn'],
+            correct: 1
+        },
+        {
+            str: 'Who bought Youtube in 2006?',
+            choices: ['Microsoft', 'Yahoo', 'Google'],
+            correct: 2
+        }
+    ]
+    for (question of questions) {
+        
+        @Format('quickReplies', question.choices)
+        > { question.str }
+
+        Prompt()
+
+        index = Array.indexOf(question.choices, :text)
+        
+        if (index == question.correct) {
+            > Very good answer
+            $score++
+        }
+        else {
+            ---
+            > It's wrong
+            > Wrong answer
+            ---
+        }
+
+    }
+
+    > Your score : { $score } / { questions.length }
+}

@@ -1,0 +1,5 @@
+@Event('start')
+start() {
+    @Format('quickReplies', ['play'])
+    > Hey, I suggest you play with me at a quiz!
+}
